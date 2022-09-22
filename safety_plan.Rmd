@@ -77,11 +77,11 @@ vehicle2 <- '2007 Taoyota Tacoma - gold with canopy'
 
 # `r paste0('Safety Plan - ',name_project_complete)` {.unnumbered .break-after-me}
 
-The latest version of this pdf can be downloaded [here](knitr::asis_output(link_pdf)).
+The latest version of this pdf can be downloaded [here](https://github.com/NewGraphEnvironment/safety_plan_elk_2022/raw/main/docs/safety_plan_nupqu-elk-cwf.pdf).
 
 <br>
 
-A zip file which includes kml (google earth) and gpx (garmin) files of the sites to be potentially assessed can be downloaded [here](knitr::asis_output(link_kml)). Georeferenced pdf maps can be accessed and downloaded [here](knitr::asis_output(link_fieldmaps)).
+A zip file which includes kml (google earth) and gpx (garmin) files of the sites to be potentially assessed can be downloaded [here](https://github.com/NewGraphEnvironment/safety_plan_elk_2022/raw/main/mapping/sites_nupqu-elk-cwf_20220922_kml_gpx.zip). Georeferenced pdf maps can be accessed and downloaded [here](https://hillcrestgeo.ca/outgoing/fishpassage/projects/elkr/).
 
 <br>
 
