@@ -34,7 +34,7 @@ Date: `r format(Sys.Date(), "%Y-%m-%d")`
 <!-- Smithers, BC V0J 2N0   -->
 
 ```{r setup, include = TRUE, echo =FALSE, message=FALSE, warning=FALSE}
-# gitbook_on <- TRUE
+#gitbook_on <- TRUE
 gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
 
 
@@ -47,37 +47,30 @@ source('R/packages.R')
 source('R/functions.R')
 # source('R/private_info.R')
 
-name_project_number <- '2022-049'
+name_project_number <- '2022-056'
 # name_project_number2 <- '2021-040'
-name_project_name <- 'sern-skeena-fish-passage'
-name_repo <- 'safety_plan_skeena_2022'
+name_project_name <- 'nupqu-elk-cwf'
+name_repo <- 'safety_plan_elk_2022'
 name_pdf <- 'safety_plan'
 name_project_complete <- paste0(name_project_number, '-', name_project_name)
 
 link_repo <- paste0('https://newgraphenvironment.github.io/', name_repo, '/')
 link_kml <- paste0('https://github.com/NewGraphEnvironment/', name_repo, '/raw/main/mapping/sites_', name_project_name, '_', format(Sys.Date(), '%Y%m%d'), '_kml_gpx.zip')
 link_pdf <- paste0('https://github.com/NewGraphEnvironment/', name_repo, '/raw/main/docs/', name_pdf, '_', name_project_name, '.pdf')
-link_fieldmaps <- 'https://hillcrestgeo.ca/outgoing/fishpassage/projects/bulkley/'
-link_fieldmaps2 <- 'https://hillcrestgeo.ca/outgoing/fishpassage/projects/kisp/'
-link_fieldmaps3 <- 'https://hillcrestgeo.ca/outgoing/fishpassage/projects/zymo/'
+link_fieldmaps <- 'https://hillcrestgeo.ca/outgoing/fishpassage/projects/elkr/'
 
 
-##this is reduntant but allows us to keep the gitbook seting for if we move to a better TOC
+##this is redundant but allows us to keep the gitbook setting for if we move to a better TOC
 font_set <- 9
 
 
 
-hotel1 <- 'Silverthorne RV park is located between Finning and the Sullivan Chevy dealership on the west side of town. The address is 1700 highway 16 but you could also type in Alix place which should bring you to the driveway as well. Contact Lance - 1 604 556 9903 - email: 399hflfibdi8v4u8b70ax17dv3oy@reply.airbnb.com'
-hotel2 <- '595 Poplar Park Rd, Kitimat-Stikine B, BC V0J 1Y0 - Carol 250-842-8794'
-hotel3 <- 'QRHW JX6 Smithers, British Columbia - 54.779045, -127.152596'
-hotel4 <- '4685-4637 13 Ave, New Hazelton, BC V0J 2J0 - Carol 250-842-8794'
-hotel5 <- '7523 Lake Kathlyn Rd, Smithers, BC V0J 2N2 - 54.830952, -127.212028'
+hotel1 <- '1500 McDonald Ave, Fernie, BC V0B 1M1 - Contact Melanie  1-250-423-8759'
 
 
 
 vehicle1 <- '2013 Toyota Tundra black w/flatdeck and yellow can-am quad'
 vehicle2 <- '2007 Taoyota Tacoma - gold with canopy'
-vehicle3 <- 'Nico Ridge - Witset - 2021 chev Silverado. 4x4 truck'
 ```
 
 <br>
@@ -88,7 +81,7 @@ The latest version of this pdf can be downloaded [here](%60r%20knitr::asis_outpu
 
 <br>
 
-A zip file which includes kml (google earth) and gpx (garmin) files of the sites to be potentially assessed can be downloaded [here](%60r%20knitr::asis_output(link_kml)%60). Georeferenced pdf maps can be accessed and downloaded [here for Bulkley and Morice](%60r%20knitr::asis_output(link_fieldmaps)%60), [here for Kispiox](%60r%20knitr::asis_output(link_fieldmaps2)%60) and [here for the Copper](%60r%20knitr::asis_output(link_fieldmaps3)%60).
+A zip file which includes kml (google earth) and gpx (garmin) files of the sites to be potentially assessed can be downloaded [here](%60r%20knitr::asis_output(link_kml)%60). Georeferenced pdf maps can be accessed and downloaded [here](%60r%20knitr::asis_output(link_fieldmaps)%60).
 
 
 <br>
@@ -100,27 +93,19 @@ A summary of sites to be potentially assessed is included as Table \@ref(tab:tab
 Al - `r vehicle1`:
 
 -   `r hotel1`
--   `r hotel2`
--   `r hotel3`
 
 Mateo - `r vehicle2`:
 
 -   `r hotel1`
--   `r hotel4`
--   `r hotel5`
 
 ```{r info-hospitals}
-hospital_name <- 'Houston Health Centre'
-hospital_phone <- '250-845-2294'
-hospital_address <- '3202 14 St, Houston, BC V0J 1Z0'
+hospital_name <- 'Elk Valley Hospital'
+hospital_phone <- '250-423-4453'
+hospital_address <- '1501 5 Ave, Fernie, BC V0B 1M0'
 
-hospital_name2 <- '(Smithers) Bulkley Valley District Hospital'
-hospital_phone2 <- '250-847-2611'
-hospital_address2 <- '3950 8 Ave, Smithers, BC V0J 2N0'
-
-hospital_name3 <- 'Wrinch Memorial Hospital - Hazelton'
-hospital_phone3 <- '250-842-5211'
-hospital_address3 <- '2510 Hwy 62, Hazelton, BC V0J 1Y0'
+hospital_name2 <- 'Elkford Health Centre - Interior Health Authority'
+hospital_phone2 <- '250-865-2247'
+hospital_address2 <- '212 Alpine Way, Elkford, BC V0B 1H0'
 
 ```
 
@@ -167,12 +152,7 @@ tab_overview %>%
 
 ```{r tab-crew}
 crew_ids <- c('airvine', 
-              'mwinterscheidt', 
-              'tpierre', 
-              'vjoseph', 
-              'jolson', 
-              'agreen',
-              'dnical')
+              'mwinterscheidt')
 
 
 tab_crew <- projects %>% 
@@ -289,26 +269,9 @@ knitr::asis_output(paste(hospital_name2, hospital_address2, hospital_phone2, sep
 
 <br>
 
-```{r hospital3, fig.cap='my_caption', fig.width=6, eval = T}
-
-#define the area of the base map by using a bounding box 
-mybasemap <- ggmap::get_map(location = hospital_address2,
-                     source = "google",
-                     zoom = 16,
-                    maptype = "roadmap")  
-
-
-ggmap::ggmap(mybasemap)
-  # geom_point(data = geocode(hospital_address), 
-  #            aes(x = lon, y = lat, colour = "black", stroke = 10), #https://stackoverflow.com/questions/54803891/custom-shape-in-ggplot-geom-point
-  #            show.legend = F)
-
-knitr::asis_output(paste(hospital_name3, hospital_address3, hospital_phone3, sep = ' - ')) 
-```
-
 ## Field Plan {.unnumbered}
 
-Field work methods will result in products feeding reporting formats such as [here](https://newgraphenvironment.github.io/fish_passage_bulkley_2020_reporting/) for 2020 and [here](https://newgraphenvironment.github.io/fish_passage_skeena_2021_reporting/) for 2021. Still picking away at 2021 and just updating version IDs as I get through it. and will generally follow procedures in:
+Field work methods will result in products feeding reporting formats such as [here](https://newgraphenvironment.github.io/fish_passage_elk_2020_reporting_cwf/) for 2020 and [here](https://newgraphenvironment.github.io/fish_passage_elk_2021_reporting/) for 2021. Still picking away at 2021 and just updating version IDs as I get through it and will generally follow procedures in:
 
 -   [fish passage assessments](https://www2.gov.bc.ca/assets/gov/environment/natural-resource-stewardship/land-based-investment/forests-for-tomorrow/field-assessment-for-determining-fish-passage-status-of-cbs.pdf) [@fish_passage_assessments]
 
