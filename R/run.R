@@ -8,7 +8,6 @@
 
 pagedown::chrome_print('safety_plan.Rmd')
 
-
 ##move the html to the docs folder so it can be viewed online
 dir.create('docs')
 file.rename('safety_plan.html', 'docs/index.html')
