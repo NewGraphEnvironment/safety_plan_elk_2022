@@ -403,7 +403,8 @@ file.copy(from = paste0('../dff-2022/data/', qml),
           to = paste0(
             '../../gis/mergin/',
             mergin_name, 
-            '/form_pscis.qml'),
+            '/',
+            qml),
           overwrite = T)
 
 ```
