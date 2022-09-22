@@ -86,7 +86,7 @@ A zip file which includes kml (google earth) and gpx (garmin) files of the sites
 
 <br>
 
-A summary of sites to be potentially assessed is included as Table \@ref(tab:tab-sites).  The process to shortlist these sites is documented [here](https://newgraphenvironment.github.io/fish_passage_skeena_2022_planning/) with a password provided in the email when this plan was originally forwarded.  If you require the password again please email al@newgraphenvironment.com.
+A summary of sites to be potentially assessed is included as Table \@ref(tab:tab-sites).  
 
 **Accomodations**
 
@@ -287,7 +287,7 @@ We have PIT tagging equipment so we could consider [tagging](https://www.youtube
 
 <br>
 
-We are running digital field form tests using a product called [Mergin Maps](https://merginmaps.com/?gclid=Cj0KCQjwxb2XBhDBARIsAOjDZ34oq-iMid3vRrgK1ZAkJ_yiz4aWY-LLF90PHiXzELbZIrxooV9vWKYaAgl2EALw_wcB) which syncs with QGIS. Crews can access projects with a free account. Please send me your usernames and I can begin to share projects/forms.
+We are running digital field form tests using a product called [Mergin Maps](https://merginmaps.com/?gclid=Cj0KCQjwxb2XBhDBARIsAOjDZ34oq-iMid3vRrgK1ZAkJ_yiz4aWY-LLF90PHiXzELbZIrxooV9vWKYaAgl2EALw_wcB) which syncs with QGIS. Crews can access projects with a free account. Please send me your usernames and we can begin to share projects/forms.
 
 <br>
 
@@ -341,10 +341,76 @@ knitr::include_graphics("fig/flow-check-in-fail.png")
 
 ```
 
-```{r load, results='hide'}
-# grab the geopackage from the mergin project 
+
+```{r load-raw, results='hide', eval=F}
+# load the target sites from the spreadsheet from mark, turn into a spatial object and burn to the mergin repo
+# this is turned to eval=false since we only need to run it once 
+
+crs <- 26911 
+
+sites_raw <- readr::read_csv('data/Site details for Mark.csv') %>% 
+  janitor::clean_names() %>% 
+  sf::st_as_sf(coords = c("easting", "northing"), crs = crs, remove = F)
+
+
 # which project?
-mergin_name <- 'bcfishpass_skeena_20220823'
+mergin_name <- 'bcfishpass_elkr_20220904'
+
+# burn the geopackage into the project
+sites_raw %>% 
+  sf::st_write(paste0(
+    '../../gis/mergin/',
+    mergin_name,
+    '/sample_site_options.gpkg'
+  ),
+  delete_dsn = T
+  )
+
+# grab the latest version of the fiss_site and pscis forms and transfer them to our mergin project along with their qmls so they can be styled
+
+# get the forms from where
+mergin_project_from <- 'bcfishpass_skeena_20220823'
+
+# list the tables in the mergin projectj
+list.files(paste0(
+  '../../gis/mergin/',
+  mergin_project_from
+),
+pattern = glob2rx('form_*.gpkg'))
+
+# read in the old form and burn to the new
+sf::st_read(paste0(
+  '../../gis/mergin/',
+  mergin_project_from,
+  '/form_pscis_202209061414.gpkg'
+)) %>% 
+  # convert crs
+  sf::st_transform(crs = crs) %>% 
+  # burn to the new project
+  sf::st_write(paste0(
+            '../../gis/mergin/',
+            mergin_name, 
+            '/form_pscis_',
+            format(lubridate::now(), "%Y%m%d"),
+            '.gpkg'
+          ),
+  delete_dsn = T)
+
+# move the latest version of the qml for the pscis_form from  dff-2022 where we now keep it.  
+qml <- 'form_pscis.qml'
+
+file.copy(from = paste0('../dff-2022/data/', qml),
+          to = paste0(
+            '../../gis/mergin/',
+            mergin_name, 
+            '/form_pscis.qml'),
+          overwrite = T)
+
+```
+
+```{r load-mergin, results='hide'}
+# grab the geopackage from the mergin project 
+
 
 table_sites <- sf::st_read(
   paste0('../../gis/mergin/',
@@ -365,7 +431,7 @@ file.remove(files_to_delete)
 #make a gpx file 
 table_sites %>% 
   mutate(name = id,
-         desc = paste0(source, ' ', followup_priority, ' ', st_rearing_km, 'km st rearing ', st_spawning_km, 'km st spawning ', followup_comments)) %>% 
+         desc = paste0(comments, ' ', ktunaxa_response)) %>% 
   # filter(source == 'morice' | source == 'cwf') %>% ##of just Morice and CWF
   select(name, desc,  geom) %>% 
   write_sf(dsn = paste0("mapping/sites_", name_project_name, '_', format(Sys.Date(), "%Y%m%d"), ".gpx"), driver="GPX",
@@ -471,9 +537,9 @@ table_sites %>%
          Stream = stream_name, 
          # watershed_code_50k, 
          # watershed_code_20k, 
-         long, 
-         lat, 
-         comments = followup_comments,
+         easting, 
+         northing, 
+         comments
          ) %>% 
   kable(caption = 'Potential sample locations.', booktabs = T) %>%
   kableExtra::kable_styling(c("condensed"),
