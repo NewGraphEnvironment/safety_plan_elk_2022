@@ -34,7 +34,7 @@ Date: `r format(Sys.Date(), "%Y-%m-%d")`
 <!-- Smithers, BC V0J 2N0   -->
 
 ```{r setup, include = TRUE, echo =FALSE, message=FALSE, warning=FALSE}
-#gitbook_on <- TRUE
+# gitbook_on <- TRUE
 gitbook_on <- FALSE  ##we just need turn  this on and off to switch between gitbook and pdf via paged.js
 
 
@@ -82,7 +82,6 @@ The latest version of this pdf can be downloaded [here](knitr::asis_output(link_
 <br>
 
 A zip file which includes kml (google earth) and gpx (garmin) files of the sites to be potentially assessed can be downloaded [here](knitr::asis_output(link_kml)). Georeferenced pdf maps can be accessed and downloaded [here](knitr::asis_output(link_fieldmaps)).
-
 
 <br>
 
@@ -411,6 +410,9 @@ file.copy(from = paste0('../dff-2022/data/', qml),
 
 ```{r load-mergin, results='hide'}
 # grab the geopackage from the mergin project 
+
+# which project? needed to be redundant becouse last chunk is off
+mergin_name <- 'bcfishpass_elkr_20220904'
 
 
 table_sites <- sf::st_read(
