@@ -433,7 +433,7 @@ file.remove(files_to_delete)
 
 #make a gpx file 
 table_sites %>% 
-  mutate(name = id,
+  mutate(name = id %>% str_replace_all('[ ()]', '_'),
          desc = paste0(comments, ' ', ktunaxa_response)) %>% 
   # filter(source == 'morice' | source == 'cwf') %>% ##of just Morice and CWF
   select(name, desc,  geom) %>% 
