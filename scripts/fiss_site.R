@@ -45,3 +45,13 @@ file.copy(from = paste0('../dff-2022/data/', qml),
             qml),
           overwrite = T)
 
+# also copy the form_fiss_site_values so that they can be pointed at by the form_fiss layer
+file_to_move <- 'form_fiss_site_values.gpkg'
+
+file.copy(from = paste0('../dff-2022/data/', file_to_move),
+          to = paste0(
+            '../../gis/mergin/',
+            mergin_name,
+            '/',
+            file_to_move),
+          overwrite = T)
